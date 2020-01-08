@@ -21,7 +21,18 @@ protected:
 
 // --- Basic waveforms ---------------------------------------
 
-class SineWaveF : public WaveformGenerator {
+// Add the different wave types inside single namespace
+namespace WafeformGenerator {
+    class SineWaveF;
+    class SineWave;
+    class SquareWave;
+    class TriangleWave;
+    class SawtoothWaveForward;
+    class SawtoothWaveBackward;
+    class PetalWave;
+}
+
+class WafeformGenerator::SineWaveF : public WaveformGenerator {
 public:
     SineWaveF(double a, double f, double s=0.0f);
     double generate();
@@ -33,12 +44,12 @@ protected:
 
 // Frequency is here more convenient, but the lib defaults to period.
 // Let the user see period definition, but actually use this behind the scenes.
-class SineWave : public SineWaveF {
+class WafeformGenerator::SineWave : public SineWaveF {
 public: 
     SineWave(double a, double f, double s = 0.0f);
 };
 
-class SquareWave : public WaveformGenerator {
+class WafeformGenerator::SquareWave : public WaveformGenerator {
 public:
     SquareWave(double a);
     SquareWave(double a, double p);
@@ -48,7 +59,7 @@ private:
     double period;
 };
 
-class TriangleWave : public WaveformGenerator {
+class WafeformGenerator::TriangleWave : public WaveformGenerator {
 public:
     TriangleWave(double a);
     TriangleWave(double a, double p);
@@ -58,20 +69,31 @@ protected:
     double period;
 };
 
-class SawtoothWave : public WaveformGenerator {
+class WafeformGenerator::SawtoothWaveForward : public WaveformGenerator {
 public:
-    SawtoothWave(double a);
-    SawtoothWave(double a, double p);
+    SawtoothWaveForward(double a);
+    SawtoothWaveForward(double a, double p);
     double generate();
 protected:
     double amplitude;
     double period;
 };
 
+class WafeformGenerator::SawtoothWaveBackward : public WaveformGenerator {
+public:
+    SawtoothWaveBackward(double a);
+    SawtoothWaveBackward(double a, double p);
+    double generate();
+protected:
+    double amplitude;
+    double period;
+};
+
+
 // --- Special waveforms -------------------------------------
 // Some predefined waveforms that are derived from the previous definitions
 
-class PetalWave : public TriangleWave {
+class WafeformGenerator::PetalWave : public TriangleWave {
 public:
     PetalWave(double a, double c);
     double generate();

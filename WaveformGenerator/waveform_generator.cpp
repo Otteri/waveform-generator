@@ -2,6 +2,8 @@
 #include <cmath>
 #define PI 3.14159265358979323846
 
+// For inherited classes
+using namespace WafeformGenerator;
 
 WaveformGenerator::WaveformGenerator() :
     time_stamp(0.0f), dt(0.001f) { };
@@ -20,7 +22,7 @@ void WaveformGenerator::forward() {
 }
 
 // Define the wave by using frequency
-SineWaveF::SineWaveF(double a, double f, double s) : 
+SineWaveF::SineWaveF(double a, double f, double s) :
     amplitude(a), frequency(f), shift(s) { };
 
 // y(t) = A*sin(2*PI*f*t+fii+shift)
@@ -52,7 +54,7 @@ double SquareWave::generate() {
 
 
 // Positive triangle wave, symmetric
-TriangleWave::TriangleWave(double a) : 
+TriangleWave::TriangleWave(double a) :
     amplitude(a), period(a) { };
 
 // Positive triangle wave, arbitrary period
@@ -66,19 +68,33 @@ double TriangleWave::generate() {
 }
 
 
-// Positive sawtooth wave
-SawtoothWave::SawtoothWave(double a) : 
+// Sawtooth, theeths facing forward
+SawtoothWaveForward::SawtoothWaveForward(double a) :
     amplitude(a), period(a) { };
 
-SawtoothWave::SawtoothWave(double a, double p) : 
+SawtoothWaveForward::SawtoothWaveForward(double a, double p) :
     amplitude(a), period(p) { };
 
-double SawtoothWave::generate() {
-    double y = abs(std::fmod(time_stamp, period) - amplitude);
+double SawtoothWaveForward::generate() {
+    //double y = abs(amplitude - std::fmod(time_stamp, period));
+    double y = abs(std::fmod(time_stamp, 2 * period) - amplitude + period);
     forward();
     return y;
 }
 
+// Sawtooth, teeths facing backwards
+SawtoothWaveBackward::SawtoothWaveBackward(double a) :
+    amplitude(a), period(a) { };
+
+SawtoothWaveBackward::SawtoothWaveBackward(double a, double p) :
+    amplitude(a), period(p) { };
+
+double SawtoothWaveBackward::generate() {
+    //double y = abs(amplitude - std::fmod(time_stamp, period));
+    double y = abs(std::fmod(time_stamp, 2 * period) - amplitude + period);
+    forward();
+    return y;
+}
 
 
 PetalWave::PetalWave(double a, double c) :

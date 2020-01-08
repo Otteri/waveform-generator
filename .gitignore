@@ -1,0 +1,8 @@
+# Visual studio
+WaveformGenerator/.vs/
+WaveformGenerator/WaveformGenerator.sln
+WaveformGenerator/WaveformGenerator.vcxproj.filters
+WaveformGenerator/WaveformGenerator.vcxproj.user
+
+WaveformGenerator/x64/
+WaveformGenerator/wave_data.csv

@@ -10,12 +10,12 @@ int main()
 {
     char csv_separator = ';';
     std::ofstream data_file("wave_data.csv");
-    SineWave sine(5.0f, 3.0f);
-    SquareWave square(2.0f, 3.0f);
-    TriangleWave triangle(3.0f);
-    SawtoothWave sawtooth(3.0f);
-    PetalWave petal_1(2.0f, 3.0f);
-    PetalWave petal_2(2.0f, 0.5f);
+    WafeformGenerator::SineWave sine(5.0f, 3.0f);
+    WafeformGenerator::SquareWave square(3.0f, 4.0f);
+    WafeformGenerator::TriangleWave triangle(4.0f);
+    WafeformGenerator::SawtoothWaveForward sawtooth(3.0f);
+    WafeformGenerator::PetalWave petal_1(2.0f, 2.0f);
+    WafeformGenerator::PetalWave petal_2(3.0f, 0.5f);
     double y1, y2, y3, y4, y5, y6, t = 0.0f;
 
     // Add titles for columns
@@ -24,7 +24,7 @@ int main()
         << "Petal_2" << std::endl;
 
     // Start generating data
-    for (int i = 0; i < 10000; i++) {
+    for (int time = 0; time < 15000; time++) {
         t = sine.getTimeStamp(); // time is same for all the waves
         y1 = sine.generate();
         y2 = square.generate();
